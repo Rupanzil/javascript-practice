@@ -1,2 +1,2 @@
 # javascript-practice
-repo to practice 
+Repo containing my personal javascript practice files
