@@ -1,0 +1,128 @@
+<!-- date: 10-01-2024
+In this file, use of XML HTTP Request has been shown
+XHR: XML HTTP Request objects have been used -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #212121; color: antiquewhite;">
+<p class="test">
+    0	UNSENT	Client has been created. open() not called yet. <br>
+    1	OPENED	open() has been called. <br>
+    2	HEADERS_RECEIVED	send() has been called, and headers and status are available. <br>
+    3	LOADING	Downloading; responseText holds partial data. <br>
+    4	DONE	The operation is complete. <br>
+</p>
+</body>
+<script>
+
+    function displayData ( follower_count, avatar_url) {
+            const div = document.createElement("div")
+
+            // Just doing the styling, nothing too useful
+            div.style.backgroundColor = "#525252";
+            div.style.border = "3px solid black";
+            div.style.borderRadius = "15px";
+            div.style.display = "flex";
+            div.style.flexDirection = "column";
+            div.style.justifyContent = "center";
+            div.style.alignItems = "center";
+
+            const imgElement = document.createElement("img");
+            imgElement.src = `${avatar_url}`
+            const textElement = document.createElement("h3")
+            textElement.textContent = `Follower count : ${follower_count}`
+            document.querySelector("body").appendChild(div)
+            document.querySelector("div").appendChild(imgElement);
+            document.querySelector("div").appendChild(textElement);
+        }
+    // API is just a way of communicating
+    // API links just gives a set of information
+
+    const requestUrl = 'https://api.github.com/users/hiteshchoudhary'  // This gives a JSON object
+    // XMLHttpRequest() is a method to instantiate a new instance of XHR object 
+
+    const xhr = new XMLHttpRequest(); // Creates new xhr object
+
+    // Let's check the readyState status in each stage of the process
+    console.log(xhr.readyState);   // shows 0
+
+    // method open() initializes a newly-created request, 
+    // or re-initializes an existing one.
+    xhr.open('GET',requestUrl)    // request url has to passed as argument
+
+    // checking the readyState status again
+    console.log(xhr.readyState);    // shows 1
+    // console.log(xhr.responseText);  // Undefined
+
+    // now we need to pass this newly created request and send it
+    xhr.send()   //by default, this is an async request, so, doesn't matter if we do it later or here
+    // but it can't be earlier than xhr.open()
+
+    // Detect readyStateChange
+    // This code is running asynchronously and will be performed in separate queue
+    xhr.onreadystatechange = function () {
+        console.log(xhr.readyState, Date.now());   // prints the readyState status with time stamps
+        if (xhr.readyState === 4) {
+            // console.log(this.responseText);    // This returns string
+            // we need to convert the response text into JSON format
+            const responseData = JSON.parse(this.responseText);
+            console.log(responseData);
+            const follower_count = responseData.followers;
+            console.log("follower count: ",follower_count);
+            const avatar_url = responseData["avatar_url"]
+            console.log(avatar_url);
+            displayData (follower_count, avatar_url)   // Don't know why this is not working 
+        }
+    }
+
+
+    // console.log(typeof responseData);    // Now this is object type
+    // we can now access the responseData and its properties
+
+
+    //This chunk below will not run as the process has not finished in the getting the data from the API
+    // and the following code is running
+    // This is the beauty of async code
+    // -----------------------------------------
+    /* console.log(responseData);
+    console.log(responseData.followers);
+    profilePic = responseData["avatar_url"]
+    console.log(profilePic); */
+    // -----------------------------------------
+    // console.log(xhr.readyState);
+    
+    </script>
+    </html>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- // const xhr = new XMLHttpRequest();
+    // xhr.open('GET', requestUrl)
+    // xhr.onreadystatechange = function(){
+    //     console.log(xhr.readyState);
+    //     if (xhr.readyState === 4) {
+    //         const data = JSON.parse(this.responseText)
+    //         console.log(typeof data);
+    //         console.log(data.followers);
+    //     }
+    // }
+    // xhr.send(); -->
