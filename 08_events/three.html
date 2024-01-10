@@ -1,0 +1,31 @@
+<!-- Date: 09-01-2024 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupanzil</title>
+</head>
+<body>
+    <div>
+        <h2>My event listeners</h2>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </div>
+</body>
+<script>
+    function sayNameAndHi(str) {
+        console.log("Hi ", str, `the time is ${Date.now()}`);
+    }
+
+    let intervalId;
+    document.querySelector("#start").addEventListener("click", () => {
+        intervalId = setInterval(sayNameAndHi, 1000, "Rupanzil"); // Giving callback to a function
+    });
+    
+    document.querySelector("#stop").addEventListener("click", () => {
+        clearInterval(intervalId)
+    });
+</script>
+</html>

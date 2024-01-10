@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur <Code></Code></title>
+    <style>
+        .py-2 {
+            padding-bottom: 10px;
+        }
+        .list-item {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body style="background-color: #212121; color: lightgreen;">
+    <div class="heading"><h1>I love coding</h1></div>
+    <div class="heading">
+        <h2>The languages I love:</h2>
+    </div>
+    <div>
+        <ol class="list">
+            <li class="list-item py-2">Javascript</li>
+            <!-- append the list below using Javascript -->
+            <!-- <li class="list py-2">Python</li>
+            <li class="list py-2">C++</li>
+            <li class="list py-2">C</li> -->
+        </ol>
+    </div>
+</body>
+<script>
+    // const newListItem = document.createElement('li')
+    // newListItem.innerText = "python"
+    // document.querySelector('.list').appendChild(newListItem) // Direct injection
+
+    // Injecting using a function
+    function addListItem ( langName ) {
+        const newListItem = document.createElement('li')
+        newListItem.innerText = langName
+        newListItem.className = document.querySelector("li").className
+        document.querySelector('.list').appendChild(newListItem)
+    }
+    addListItem("Python")
+    addListItem("C++")
+    addListItem("C")
+
+    function addOptiLanguage( langName ) {
+        // This is a more optimized way to add an element
+        const li = document.createElement('li')
+        li.appendChild(document.createTextNode(langName))   // No need to traverse the whole HTML tree to add text
+        li.className = document.querySelector("li").className
+        document.querySelector('.list').appendChild(li)
+    }
+
+    addOptiLanguage( "Kotlin")
+
+    
+</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlimited Background color changer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Change the background color every second</h1>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </div>
+</body>
+<script>
+    // Generate random color
+    // using hsl values
+    // in HSL system, hue ranges from 0 to 360
+    // saturation from 0 to 100%
+    // Lightness ranges from 0 to 100%
+
+    function generateRandomColor() {
+        let randomHue = Math.floor(Math.random() * 360);    // Math.random() returns a number, so can't use parseInt
+        let randomSat = Math.floor(Math.random() * 100);    
+        let randomLightness = Math.floor(Math.random() * 100);    
+        let bgRandomColor = `hsl(${randomHue},${randomSat}%,${randomLightness}%)`;
+        // console.log(bgRandomColor);
+        document.body.style.backgroundColor = bgRandomColor;
+    }
+
+    let intervalId;
+    let backgroundColorChanged = false;
+
+    document.querySelector("#start").addEventListener("click", () => {
+        if ( !backgroundColorChanged ) {
+            backgroundColorChanged = true;
+            intervalId = setInterval(generateRandomColor, 1000);
+        }
+            
+    })
+
+    document.querySelector("#stop").addEventListener("click", () => {
+        clearInterval(intervalId);
+        backgroundColorChanged = false;
+    })
+
+</script>
+</html>
